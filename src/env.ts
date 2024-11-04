@@ -2,8 +2,7 @@ import { toBool } from "./shared";
 import { config } from 'dotenv';
 import * as path from 'path';
 
-export const ENV_PRODUCTION = 'production';
-export const ENV_DEVELOPMENT = 'development';
+
 
 config({
     path: path.join(
@@ -12,6 +11,9 @@ config({
         `${process.env.NODE_ENV || 'development'}.env`
     ),
 });
+
+export const ENV_PRODUCTION = 'production';
+export const ENV_DEVELOPMENT = 'development';
 
 export const ENV = {
     port: process.env.PORT,
@@ -39,7 +41,7 @@ export const ENV = {
 
 export const ormConfig = {
     type: ENV.db.type,
-    host: ENV.db.host,
+    host: ENV.db.host || 'localhost',
     port: +ENV.db.port,
     username: ENV.db.username,
     password: ENV.db.password,

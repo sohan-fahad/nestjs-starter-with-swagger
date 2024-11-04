@@ -1,43 +1,31 @@
 version: "3.7"
 services:
-  postgres:
-    image: postgres:16.4-alpine3.20
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+  pg:
+    container_name: "pg"
+    image: postgres:latest
+    restart: always
     ports:
-      - target: 5432
-        published: 5432 # changed; in case you have a local postgres running
-        protocol: tcp
+      - "5432:5432"
+    environment:
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=postgres"
     volumes:
-      - target: /var/lib/postgresql/data
-        source: postgres-data
-        type: volume
+      - local-data:/pg/docker-entrypoint-initdb.d/
 
   redis:
-    image: bitnami/redis:6.2
-    environment:
-      ALLOW_EMPTY_PASSWORD: yes
+    container_name: "redis"
+    image: redis
+    restart: always
     ports:
-      - target: 6379
-        published: 6379 # changed; in case you have a local redis running
-        protocol: tcp
-    volumes:
-      - target: /bitnami/redis/data
-        source: redis-data
-        type: volume
+      - "6379:6379"
 
   adminer:
-    image: adminer:4.8.1
+    image: adminer:latest
     restart: always
     depends_on:
-      - postgres
+      - pg
     ports:
-      - target: 8080
-        published: 8080
-        protocol: tcp
+      - 8080:8080
 
 volumes:
-  postgres-data:
-  redis-data:
+  local-data:

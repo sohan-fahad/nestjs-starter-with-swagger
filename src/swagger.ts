@@ -28,7 +28,6 @@ export function setupSwagger(app: INestApplication): void {
     .setTitle(ENV.api.API_TITLE)
     .setDescription(ENV.api.API_DESCRIPTION)
     .setVersion(ENV.api.API_VERSION)
-    .setBasePath(ENV.api.API_PREFIX)
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
