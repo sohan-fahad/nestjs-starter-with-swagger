@@ -1,0 +1,43 @@
+version: "3.7"
+services:
+  postgres:
+    image: postgres:16.4-alpine3.20
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - target: 5432
+        published: 5432 # changed; in case you have a local postgres running
+        protocol: tcp
+    volumes:
+      - target: /var/lib/postgresql/data
+        source: postgres-data
+        type: volume
+
+  redis:
+    image: bitnami/redis:6.2
+    environment:
+      ALLOW_EMPTY_PASSWORD: yes
+    ports:
+      - target: 6379
+        published: 6379 # changed; in case you have a local redis running
+        protocol: tcp
+    volumes:
+      - target: /bitnami/redis/data
+        source: redis-data
+        type: volume
+
+  adminer:
+    image: adminer:4.8.1
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - target: 8080
+        published: 8080
+        protocol: tcp
+
+volumes:
+  postgres-data:
+  redis-data:

@@ -34,7 +34,8 @@ async function bootstrap() {
 
   setupSwagger(app);
 
-  await app.listen(3000);
+  await app.listen(ENV.port);
+  logger.log("🚀 ~ bootstrap ~ ENV.port:", ENV.port)
 
   logger.log(
     `🚀🚀🚀🚀 Application is running on: ${await app.getUrl()} 🚀🚀🚀🚀`

@@ -1,7 +1,17 @@
 import { toBool } from "./shared";
+import { config } from 'dotenv';
+import * as path from 'path';
 
 export const ENV_PRODUCTION = 'production';
 export const ENV_DEVELOPMENT = 'development';
+
+config({
+    path: path.join(
+        process.cwd(),
+        'environments',
+        `${process.env.NODE_ENV || 'development'}.env`
+    ),
+});
 
 export const ENV = {
     port: process.env.PORT,
