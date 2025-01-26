@@ -1,4 +1,4 @@
-import { toBool } from "./shared";
+import { toBool, toNumber } from "./shared";
 import { config } from 'dotenv';
 import * as path from 'path';
 
@@ -35,6 +35,13 @@ export const ENV = {
 
         synchronize: toBool(process.env.DB_SYNCHRONIZE),
         logging: toBool(process.env.DB_LOGGING),
+    },
+
+    jwt: {
+        secret: process.env.JWT_SECRET,
+        saltRound: toNumber(process.env.JWT_SALT_ROUNDS),
+        tokenExpireIn: process.env.JWT_EXPIRES_IN,
+        refreshTokenExpireIn: process.env.JWT_REFRESH_TOKEN_EXPIRES_IN,
     },
 
 }

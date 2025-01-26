@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { User } from './entities/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserService } from './services/user.service';
 import { HelpersModule } from '@src/app/helpers/helper.module';
+import { Donation } from './entities/donation.entity';
+import { DonationService } from './services/donation.service';
 
-const entities = [User];
-const services = [UserService];
+const entities = [Donation];
+const services = [DonationService];
 const subscribers = [];
 const controllers = [];
 const webControllers = [];
@@ -17,4 +17,4 @@ const modules = [HelpersModule];
     exports: [...services, ...subscribers],
     controllers: [...controllers, ...webControllers],
 })
-export class UserModule { }
+export class DonationModule { }
